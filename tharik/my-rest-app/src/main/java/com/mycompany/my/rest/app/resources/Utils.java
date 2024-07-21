@@ -12,5 +12,6 @@ import java.util.List;
  * @author icbt
  */
 public class Utils {
+
     public static List<Student> students = new ArrayList<>();
 }

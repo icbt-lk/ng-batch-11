@@ -79,7 +79,7 @@ public class StudentResource {
     @Path("{id}")
     public Response deleteStudent(@PathParam("id") int id) {
         if (utils.deleteStudent(id)) {
-                        return Response
+            return Response
                     .status(Response.Status.OK)
                     .build();
         } else {

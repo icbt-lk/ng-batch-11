@@ -11,13 +11,14 @@ import java.util.List;
  * @author icbt
  */
 public interface DBUtils {
+
     public List<Student> getStudents();
-    
+
     public Student getStudent(int id);
-    
+
     public boolean addStudent(Student st);
-    
+
     public boolean updateStudent(Student st);
-    
+
     public boolean deleteStudent(int id);
 }

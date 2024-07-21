@@ -12,8 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -53,7 +51,7 @@ public class MySQLUtils implements DBUtils {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM students WHERE id=" + id);
             if (rs.next()) {
-              student = new Student(rs.getInt("id"), rs.getString("name"), rs.getString("dateOfBirth"));  
+                student = new Student(rs.getInt("id"), rs.getString("name"), rs.getString("dateOfBirth"));
             }
         } catch (ClassNotFoundException | SQLException e) {
             return null;
@@ -62,92 +60,89 @@ public class MySQLUtils implements DBUtils {
         return student;
     }
 
-@Override
-public boolean addStudent(Student st) {
-    try {
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-        
-        // Create a prepared statement with an SQL query to insert a new student
-        String query = "INSERT INTO students (id, name, dateOfBirth) VALUES (?, ?, ?)";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setInt(1, st.getId());
-        pstmt.setString(2, st.getName());
-        pstmt.setString(3, st.getDateOfBirth());
+    @Override
+    public boolean addStudent(Student st) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-        // Execute the insert query
-        int rowsAffected = pstmt.executeUpdate();
+            // Create a prepared statement with an SQL query to insert a new student
+            String query = "INSERT INTO students (id, name, dateOfBirth) VALUES (?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, st.getId());
+            pstmt.setString(2, st.getName());
+            pstmt.setString(3, st.getDateOfBirth());
 
-        // Close resources
-        pstmt.close();
-        conn.close();
+            // Execute the insert query
+            int rowsAffected = pstmt.executeUpdate();
 
-        // Check if the insert was successful (1 row affected means success)
-        return rowsAffected == 1;
+            // Close resources
+            pstmt.close();
+            conn.close();
 
-    } catch (ClassNotFoundException | SQLException e) {
-        e.printStackTrace();  // Handle or log the exception properly
-        return false;
+            // Check if the insert was successful (1 row affected means success)
+            return rowsAffected == 1;
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();  // Handle or log the exception properly
+            return false;
+        }
     }
-}
 
+    @Override
+    public boolean updateStudent(Student st) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-@Override
-public boolean updateStudent(Student st) {
-    try {
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-        
-        // Create a prepared statement with an SQL query to update a student
-        String query = "UPDATE students SET name=?, dateOfBirth=? WHERE id=?";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setString(1, st.getName());
-        pstmt.setString(2, st.getDateOfBirth());
-        pstmt.setInt(3, st.getId());
+            // Create a prepared statement with an SQL query to update a student
+            String query = "UPDATE students SET name=?, dateOfBirth=? WHERE id=?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, st.getName());
+            pstmt.setString(2, st.getDateOfBirth());
+            pstmt.setInt(3, st.getId());
 
-        // Execute the update query
-        int rowsAffected = pstmt.executeUpdate();
+            // Execute the update query
+            int rowsAffected = pstmt.executeUpdate();
 
-        // Close resources
-        pstmt.close();
-        conn.close();
+            // Close resources
+            pstmt.close();
+            conn.close();
 
-        // Check if the update was successful (1 row affected means success)
-        return rowsAffected == 1;
+            // Check if the update was successful (1 row affected means success)
+            return rowsAffected == 1;
 
-    } catch (ClassNotFoundException | SQLException e) {
-        e.printStackTrace();  // Handle or log the exception properly
-        return false;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();  // Handle or log the exception properly
+            return false;
+        }
     }
-}
 
+    @Override
+    public boolean deleteStudent(int id) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-@Override
-public boolean deleteStudent(int id) {
-    try {
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-        
-        // Create a prepared statement with an SQL query to delete a student
-        String query = "DELETE FROM students WHERE id=?";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setInt(1, id);
+            // Create a prepared statement with an SQL query to delete a student
+            String query = "DELETE FROM students WHERE id=?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, id);
 
-        // Execute the delete query
-        int rowsAffected = pstmt.executeUpdate();
+            // Execute the delete query
+            int rowsAffected = pstmt.executeUpdate();
 
-        // Close resources
-        pstmt.close();
-        conn.close();
+            // Close resources
+            pstmt.close();
+            conn.close();
 
-        // Check if the delete was successful (1 row affected means success)
-        return rowsAffected == 1;
+            // Check if the delete was successful (1 row affected means success)
+            return rowsAffected == 1;
 
-    } catch (ClassNotFoundException | SQLException e) {
-        e.printStackTrace();  // Handle or log the exception properly
-        return false;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();  // Handle or log the exception properly
+            return false;
+        }
     }
-}
-
 
 }

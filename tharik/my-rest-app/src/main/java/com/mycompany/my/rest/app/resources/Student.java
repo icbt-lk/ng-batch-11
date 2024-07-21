@@ -9,9 +9,10 @@ package com.mycompany.my.rest.app.resources;
  * @author icbt
  */
 public class Student {
+
     private int id;
     private String name;
-    private String dateOfBirth; 
+    private String dateOfBirth;
 
     public Student() {
     }
@@ -45,6 +46,5 @@ public class Student {
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-    
-    
+
 }
