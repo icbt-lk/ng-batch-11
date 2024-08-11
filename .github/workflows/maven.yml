@@ -29,4 +29,4 @@ jobs:
         cache: maven
     - name: Build with Maven
       working-directory: tharik/my-rest-app/
-      run: mvn clean build
+      run: mvn clean compile
